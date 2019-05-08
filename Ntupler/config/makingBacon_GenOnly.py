@@ -44,7 +44,7 @@ cmssw_base = os.environ['CMSSW_BASE']
 
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 process.source = cms.Source("PoolSource",
-  fileNames  = cms.untracked.vstring('file:test.root')
+  fileNames  = cms.untracked.vstring('file:EXO-RunIIFall17wmLHEGS-00035.root')
 )
 process.source.inputCommands = cms.untracked.vstring("keep *",
                                                      "drop *_MEtoEDMConverter_*_*")

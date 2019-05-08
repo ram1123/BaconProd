@@ -31,11 +31,13 @@ def search(dirname):
     global count
     global basecount
     #print 'dir',dirname
-    dirSearch = '%s ls %s' %(eos,dirname)
+    #dirSearch = '%s ls %s' %(eos,dirname)
+    dirSearch = 'ls /eos/uscms/%s' %(dirname)
     exists = commands.getoutput(dirSearch)
     for label in exists.splitlines():
         if label.find('log') > 0 or label == 'failed':
-            os.system('%s rm -r %s/%s' % (eos,dirname,label))
+            #os.system('%s rm -r %s/%s' % (eos,dirname,label))
+            os.system('rm -r /eos/uscms/%s/%s'% (dirname,label))
             #print '%s rm -r %s/%s' % (eos,dirname,label)
             continue
         if label.find('.root') > 0 and dirname != '/store/group/lpcbacon/%s/%s' % (args.base[0],args.dir[0]):
@@ -58,10 +60,12 @@ def cleardir(dirname,iFile=True):
         if label.find('.root') < 0 and not iFile:
             continue
         if iFile:
-            os.system('echo %s rm -r %s/%s >> clearAll.sh' % (eos,dirname,label))
+            #os.system('echo %s rm -r %s/%s >> clearAll.sh' % (eos,dirname,label))
+            os.system('echo rm -r /eos/uscms/%s/%s >> clearAll.sh' % (dirname,label))
             #print 'echo %s rm -r %s/%s >> clearAll.sh'% (eos,dirname,label)
         else:
-            os.system('%s rm %s/%s' % (eos,dirname,label))
+            #os.system('%s rm %s/%s' % (eos,dirname,label))
+            os.system('rm /eos/uscms/%s/%s' % (dirname,label))
             #print 'trying to erase'
             #print '%s rm %s/%s' % (eos,dirname,label)
 

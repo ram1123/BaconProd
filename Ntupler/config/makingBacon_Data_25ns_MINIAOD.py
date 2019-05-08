@@ -190,9 +190,9 @@ if do_alpaca:
 #--------------------------------------------------------------------------------
 # input settings
 #================================================================================
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(10000) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(10) )
 process.source = cms.Source("PoolSource",
-                            fileNames = cms.untracked.vstring('/store/data/Run2017D/JetHT/MINIAOD/17Nov2017-v1/40000/4A6E1527-00CC-E711-879D-0025904CF710.root'),
+                            fileNames = cms.untracked.vstring('/store/data/Run2017B/SingleMuon/MINIAOD/17Nov2017-v1/40000/0021369B-9BD8-E711-BFE9-FA163EAA42CB.root'),
 )
 process.source.inputCommands = cms.untracked.vstring("keep *",
                                                      "drop *_MEtoEDMConverter_*_*")

@@ -193,8 +193,11 @@ if do_alpaca:
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(50) )
 process.source = cms.Source("PoolSource",
                             #fileNames = cms.untracked.vstring('/store/mc/RunIIFall17MiniAOD/QCD_HT1000to1500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/94X_mc2017_realistic_v10-v1/50000/EEF28E00-0CEA-E711-8257-02163E0160F1.root'),
-                            fileNames = cms.untracked.vstring('file:EXO-RunIIFall17MiniAOD-00035.root'),
+                            fileNames = cms.untracked.vstring('/store/mc/RunIIFall17MiniAOD/ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8/MINIAODSIM/TSG_94X_mc2017_realistic_v11-v1/70000/F40F0833-E721-E811-8F49-7CD30ACDCE6C.root'),
+                            #fileNames = cms.untracked.vstring('file:EXO-RunIIFall17MiniAOD-00035.root'),
                             #skipEvents = cms.untracked.uint32(0),
+                            #eventsToProcess = cms.untracked.VEventRange('1:1-1:20000'),
+                            lumisToProcess = cms.untracked.VLuminosityBlockRange('1:1-1:10000'),
 )
 
 process.source.inputCommands = cms.untracked.vstring("keep *",
@@ -208,6 +211,7 @@ process.options = cms.untracked.PSet(
   wantSummary = cms.untracked.bool(False),
   Rethrow     = cms.untracked.vstring('ProductNotFound'),
   fileMode    = cms.untracked.string('NOMERGE'),
+  IgnoreCompletely = cms.untracked.vstring('Invalid Constituent'),
 )
 
 #--------------------------------------------------------------------------------
@@ -251,13 +255,13 @@ process.ntupler = cms.EDAnalyzer('NtuplerMod',
   ),
 
   GenJet  = cms.untracked.PSet(
-    isActive            = ( cms.untracked.bool(False)),
-    isActiveFatJet      = ( cms.untracked.bool(False)),
+    isActive            = ( cms.untracked.bool(True)),
+    isActiveFatJet      = ( cms.untracked.bool(True)),
     #isActive            = ( cms.untracked.bool(False) if is_data_flag else cms.untracked.bool(True) ),
     #isActiveFatJet      = ( cms.untracked.bool(False) if is_data_flag else cms.untracked.bool(True) ),
     edmGenParticlesName = cms.untracked.string('prunedGenParticles'),
-    genJetName          = cms.untracked.string('AK4GenJetsCHS'),
-    genFatJetName       = cms.untracked.string('AK8GenJetsCHS'),
+    genJetName          = cms.untracked.string('slimmedGenJets'),
+    genFatJetName       = cms.untracked.string('slimmedGenJetsAK8'),
     fillAllGen          = cms.untracked.bool(False)
   ),
                                    
@@ -594,6 +598,9 @@ process.ntupler = cms.EDAnalyzer('NtuplerMod',
     doAddDepthTime = cms.untracked.bool(False)
   )
 )
+
+process.options.numberOfThreads=cms.untracked.uint32(8)
+process.options.numberOfStreams=cms.untracked.uint32(0)
 
 process.baconSequence = cms.Sequence(
                                      #process.pfCleaned*
